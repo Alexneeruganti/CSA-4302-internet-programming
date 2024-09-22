@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .side-panel {
+            width: 200px;
+            background-color: #00796b;
+            padding: 1em;
+            color: white;
+            position: fixed;
+            height: 100%;
+        }
+
+        .side-panel h2 {
+            color: #ffffff;
+        }
+
+        .side-panel a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5em 0;
+            transition: background-color 0.3s;
+        }
+
+        .side-panel a:hover {
+            background-color: #004d40;
+        }
+
+        .container {
+            margin-left: 220px; /* Adjust for side panel width */
+            max-width: 1000px; /* Wider container */
+            padding: 2em;
+            display: flex; /* Flex layout */
+            justify-content: space-between; /* Space between sections */
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-items {
+            width: 60%; /* Cart items section */
+            margin-right: 20px;
+        }
+
+        .customer-details {
+            width: 35%; /* Customer details section */
+            background: #e0f2f1; /* Light background for contrast */
+            padding: 1.5em;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00796b;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1em;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .cart-item:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .cart-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .item-details {
+            flex-grow: 1;
+            margin-left: 1em;
+        }
+
+        .remove-button {
+            background-color: #e57373;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .remove-button:hover {
+            background-color: #c62828;
+        }
+
+        .customer-details input,
+        .customer-details select {
+            width: 100%;
+            padding: 0.5em;
+            margin: 0.5em 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .customer-details input:focus,
+        .customer-details select:focus {
+            border-color: #00796b;
+        }
+
+        .submit-button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 0.7em 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #004d40;
+        }
+
+        .rental-details {
+            margin-top: 10px;
+        }
+
+        .days-control button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+        }
+
+        .days-control button:hover {
+            background-color: #004d40;
+        }
+
+        .days-control input {
+            width: 50px;
+            text-align: center;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="side-panel">
+        <h2>Navigation</h2>
+        <a href="library home.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="library home.html#contact">Contact Us</a>
+        <a href="library home.html#about-us">About Us</a>
+    </div>
+
+    <div class="container">
+        <div class="cart-items" id="cart-items"></div>
+
+        <div class="customer-details">
+            <h2>Customer Details</h2>
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="mobile" placeholder="Mobile Number" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <select id="subscription" onchange="toggleAddressField()">
+                <option value="no">No Subscription</option>
+                <option value="student">Student Plan</option>
+                <option value="faculty">Faculty Plan</option>
+                <option value="premium">Premium Plan</option>
+            </select>
+            <input type="text" id="address" placeholder="Delivery Address" required style="display: none;"> <!-- Hidden initially -->
+            <button class="submit-button" onclick="submitOrder()">Submit Order</button>
+        </div>
+    </div>
+       <script>
+    const cartItemsContainer = document.getElementById('cart-items');
+
+    function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItemsContainer.innerHTML = ''; // Clear existing items
+
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+            return; // Exit the function if the cart is empty
+        }
+
+        cart.forEach((item, index) => {
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.className = 'cart-item';
+            cartItemDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <div class="item-details">
+                    <p><strong>Name:</strong> ${item.name}</p>
+                    <p><strong>Author:</strong> ${item.author}</p>
+                    <p><strong>Year:</strong> ${item.year}</p>
+
+                    <!-- Days to rent section with + and - buttons -->
+                    <div class="days-control">
+                        <button onclick="changeRentalDays(${index}, -1)">-</button>
+                        <input type="number" id="rental-days-${index}" value="1" min="1" readonly>
+                        <button onclick="changeRentalDays(${index}, 1)">+</button>
+                    </div>
+                    
+                    <p class="rental-details" id="due-date-${index}"></p>
+                </div>
+                <button class="remove-button" onclick="removeFromCart(${index})">Remove</button>
+            `;
+            cartItemsContainer.appendChild(cartItemDiv);
+
+            updateDueDate(index, 1); // Set initial due date
+        });
+    }
+
+    function updateDueDate(index, days) {
+        const dueDateElement = document.getElementById(`due-date-${index}`);
+        if (days) {
+            const dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + parseInt(days, 10));
+            dueDateElement.innerText = `Due Date: ${dueDate.toLocaleDateString()}`;
+        } else {
+            dueDateElement.innerText = '';
+        }
+    }
+
+    function changeRentalDays(index, change) {
+        const rentalDaysInput = document.getElementById(`rental-days-${index}`);
+        let currentDays = parseInt(rentalDaysInput.value, 10);
+
+        // Adjust the rental days and prevent it from going below 1
+        currentDays += change;
+        if (currentDays < 1) {
+            currentDays = 1;
+        }
+
+        rentalDaysInput.value = currentDays;
+
+        // Update the due date based on the new number of days
+        updateDueDate(index, currentDays);
+    }
+
+    function removeFromCart(index) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart(); // Reload cart items
+    }
+
+    function toggleAddressField() {
+        const subscription = document.getElementById('subscription').value;
+        const addressField = document.getElementById('address');
+
+        if (subscription !== 'no') {
+            addressField.style.display = 'block'; // Show address field
+        } else {
+            addressField.style.display = 'none'; // Hide address field
+        }
+    }
+
+    function submitOrder() {
+    const name = document.getElementById('name').value;
+    const mobile = document.getElementById('mobile').value;
+    const email = document.getElementById('email').value;
+    const subscription = document.getElementById('subscription').value;
+    const address = document.getElementById('address').value;
+    const cart = localStorage.getItem('cart'); // Get cart details
+
+    if (subscription !== 'no' && !address) {
+        alert("Please enter your address for home delivery.");
+        return;
+    }
+
+    // Validate other fields
+    if (!name || !mobile || !email) {
+        alert("Please fill in all customer details.");
+        return;
+    }
+
+    // Send order details to the server
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "store_order.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xhr.onload = function() {
+        console.log(this.status, this.responseText); // Log the response
+        if (this.status === 200) {
+            alert(this.responseText); // Show success message
+            localStorage.removeItem('cart'); // Clear the cart
+            window.location.href = "thank you.html"; // Redirect to thank you page
+        } else {
+            alert("Error submitting order: " + this.responseText);
+        }
+    };
+
+    // Send the form data
+    const data = `name=${encodeURIComponent(name)}&mobile=${encodeURIComponent(mobile)}&email=${encodeURIComponent(email)}&subscription=${encodeURIComponent(subscription)}&address=${encodeURIComponent(address)}&cart=${encodeURIComponent(cart)}`;
+    xhr.send(data);
+}
+
+
+    // Call loadCart when the page loads
+    window.onload = function() {
+        loadCart();
+    };
+</script>
+</body>
+</html>

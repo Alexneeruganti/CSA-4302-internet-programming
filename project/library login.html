@@ -1,0 +1,64 @@
+
+<html>
+<head>
+
+    <title>Library management</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('backimg.png');
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+        }
+
+        .loginbox{
+            width: 300px;
+            padding: 20px;
+            background-color: rgba(238, 238, 238, 0.601); 
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #5cb85c5c;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loginbox">
+        <center><h2>LOGIN</h2></center>
+        <form action="auth.php" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+            <label>if you dont have account,click here</label>
+            <a href="signin.html">signin</a><br>
+        
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('payment.jpg'); /* Replace with your image path */
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            padding: 30px; /* Increased padding */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            width: 320px; /* Slightly wider for better layout */
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0; /* Adjusted margin */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border 0.3s;
+        }
+        input:hover, select:hover {
+            border-color: #007BFF;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+            margin-top: 10px; /* Added margin to separate from the last input */
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+    <script>
+        function processPayment() {
+            const plan = document.getElementById("plan").value;
+            const name = document.getElementById("name").value;
+            const mobile = document.getElementById("mobile").value;
+            const paymentMethod = document.getElementById("paymentMethod").value;
+            let amount;
+
+            switch(plan) {
+                case "student":
+                    amount = 399;
+                    break;
+                case "faculty":
+                    amount = 499;
+                    break;
+                case "premium":
+                    amount = 599;
+                    break;
+                default:
+                    amount = 0;
+            }
+
+            if (amount > 0 && name && mobile) {
+                alert(`Payment Successful!\nName: ${name}\nMobile: ${mobile}\nPlan: ${plan.charAt(0).toUpperCase() + plan.slice(1)} Plan\nAmount: ₹${amount}\nPayment Method: ${paymentMethod}`);
+            } else {
+                alert("Please fill in all details and select a subscription plan.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Select Your Subscription Plan</h2>
+        <form onsubmit="event.preventDefault(); processPayment();">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="text" id="mobile" placeholder="Mobile Number" required>
+            <label for="plan">Choose a plan:</label>
+            <select id="plan" name="plan" required>
+                <option value="">--Select a Plan--</option>
+                <option value="student">Student Plan (₹399)</option>
+                <option value="faculty">Faculty Plan (₹499)</option>
+                <option value="premium">Premium Plan (₹599)</option>
+            </select>
+            <label for="paymentMethod">Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+                <option value="credit">Credit/Debit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="netbanking">Net Banking</option>
+            </select>
+            <button type="submit">Proceed to Payment</button>
+        </form>
+    </div>
+</body>
+</html>

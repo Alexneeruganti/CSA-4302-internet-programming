@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management - Sign Up</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('backimg.png') no-repeat center center fixed; /* Apply background image */
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            color: #fff; /* Ensure text contrasts well on the background */
+        }
+
+        .signupbox {
+            width: 300px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.85); /* Add a translucent white background */
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: #333; /* Darker text color for good readability */
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0; /* Reduced margin to keep inputs inside the box */
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box; /* Ensures padding and border are included in width */
+        }
+
+        label {
+            color: #333; /* Darker label text for contrast */
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #66b266;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 600px) {
+            .signupbox {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signupbox">
+        <center><h2>SIGN UP</h2></center>
+        <form action="login.php" method="post">
+            <label for="username">Enter Username</label><br>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <label for="password">Set Password</label><br>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: url('backimg.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #333;
+            padding: 1em;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            color: white;
+            padding: 5em 1em;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+        }
+
+        /* Book Sections (Three Columns) */
+        .book-sections {
+            display: flex;
+            justify-content: space-around;
+            padding: 2em;
+        }
+
+        .book-category {
+            width: 30%;
+        }
+
+        .book-category h3 {
+            text-align: center;
+            margin-bottom: 1em;
+            font-size: 1.5em;
+            color: white;
+        }
+
+        .book-category .book {
+            text-align: center;
+            margin-bottom: 2em;
+            position: relative;
+            padding: 1em;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .book-category .book img {
+            width: 150px;
+            height: 200px;
+            display: block;
+            margin: 0 auto;
+            padding: 0.5em;
+            border-radius: 10px;
+        }
+
+        .book-category .book-details {
+            margin-top: 0.5em;
+            color: white;
+            padding: 1em;
+            border-radius: 10px;
+        }
+
+        .book-category .book-details p {
+            margin: 0.2em 0;
+            color: white;
+        }
+
+        /* Subscription Section */
+        .subscription-section {
+            background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+            padding: 2em;
+            text-align: center;
+            color: black;
+            border-radius: 10px;
+            margin: 2em auto;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .subscription-section h2 {
+            margin-bottom: 1em;
+            font-size: 2em;
+        }
+
+        .subscription-plan {
+            display: inline-block;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 1em;
+            width: 30%;
+            margin: 1em;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .subscription-plan:hover {
+            transform: scale(1.05);
+            background-color: #f1f1f1;
+        }
+
+        .subscription-plan h3 {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+            border-bottom: 2px solid blue;
+            padding-bottom: 0.2em;
+        }
+
+        .subscription-plan p {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+
+        .amount-button {
+            display: inline-block;
+            padding: 0.5em 1em;
+            font-size: 1em;
+            color: white;
+            background-color: #00796b; /* Updated to blue */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: 2px solid green;
+        }
+
+        .amount-button:hover {
+            background-color: #004d40;
+            border-color: darkgreen;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2em;
+            text-align: center;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .about-us {
+            text-align: left;
+            margin: 0 1em;
+        }
+
+        .about-us h3 {
+            margin-bottom: 0.5em;
+            font-size: 1.5em;
+            color: lightblue;
+            border-bottom: 2px solid blue;
+            display: inline-block;
+            padding-bottom: 0.2em;
+        }
+
+        .about-us ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0.5em 0;
+        }
+
+        .about-us ul li {
+            margin-bottom: 0.5em;
+        }
+
+        .contact-info {
+            text-align: left;
+            margin: 0 1em;
+        }
+
+        .contact-item {
+            display: block;
+            margin: 0.5em 0;
+        }
+
+        .contact-link {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            color: lightblue;
+        }
+
+        /* Side Panel */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            color: white;
+            width: 170px;
+            height: 100%;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .side-panel a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5em 0.5em;
+            margin: 0.5em 0;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .side-panel a:hover {
+            background-color: #555;
+        }
+
+        /* Mobile View */
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-us, .contact-info {
+                margin-bottom: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Side Panel -->
+    <div class="side-panel">
+        <a href="#hero">Home</a>
+        <a href="#subscription">Subscription</a>
+        <a href="cart.html">Cart</a> <!-- Updated to cart.html -->
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero">
+        <h1>Welcome to BOOK WORLD</h1>
+        <p>Your gateway to a world of knowledge</p>
+        <i><p>A place where time is lost for good</p></i>
+    </header>
+
+    <!-- Book Sections -->
+    <section id="book-sections" class="book-sections">
+        <!-- Romantic Books -->
+        <div class="book-category">
+            <h3>Romantic Books</h3>
+            <div class="book">
+                <img src="r1.jpeg" alt="Romantic Book 1">
+                <div class="book-details">
+                    <p><strong>Name:</strong> You've Reached Sam</p>
+                    <p><strong>Author:</strong> Dustin Thao</p>
+                    <p><strong>Year:</strong> 2022</p>
+                </div>
+            </div>
+            <div class="book">
+                <img src="r2.jpeg" alt="Romantic Book 2">
+                <div class="book-details">
+                    <p><strong>Name:</strong> You and I</p>
+                    <p><strong>Author:</strong> Chahat Hasija</p>
+                    <p><strong>Year:</strong> 2023</p>
+                </div>
+            </div>
+            <div class="book">
+                <img src="r3.jpeg" alt="Romantic Book 3">
+                <div class="book-details">
+                    <p><strong>Name:</strong> To All the Boys I've Loved Before</p>
+                    <p><strong>Author:</strong> Jenny Han</p>
+                    <p><strong>Year:</strong> 2014</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motivational Books -->
+        <div class="book-category">
+            <h3>Motivational Books</h3>
+            <div class="book">
+                <img src="p3.jpg" alt="Motivational Book 1">
+                <div class="book-details">
+                    <p><strong>Name:</strong> The Psychology of Money</p>
+                    <p><strong>Author:</strong> Morgan Housel</p>
+                    <p><strong>Year:</strong> 2020</p>
+                </div>
+            </div>
+            <div class="book">
+                <img src="p4.jpeg" alt="Motivational Book 2">
+                <div class="book-details">
+                    <p><strong>Name:</strong> Eat That Frog!</p>
+                    <p><strong>Author:</strong> Brian Tracy</p>
+                    <p><strong>Year:</strong> 2001</p>
+                </div>
+            </div>
+            <div class="book">
+                <img src="p5.jpg" alt="Motivational Book 3">
+                <div class="book-details">
+                    <p><strong>Name:</strong> Think Like a Monk</p>
+                    <p><strong>Author:</strong> Jay Shetty</p>
+                    <p><strong>Year:</strong> 2020</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fantasy Books -->
+        <div class="book-category">
+            <h3>Fantasy Books</h3>
+            <div class="book">
+                <img src="f1.jpeg" alt="Fantasy Book 1">
+                <div class="book-details">
+                    <p><strong>Name:</strong> The Secret of Magic Falling Kingdom Academy 2</p>
+                    <p><strong>Author:</strong> A. K. Hossain</p>
+                    <p><strong>Year:</strong> 2023</p>
+                </div>
+            </div>
+            <div class="book">
+                <img src="f2.jpeg" alt="Fantasy Book 2">
+                <div class="book-details">
+                    <p><strong>Name:</strong> The Elements of the Crown</p>
+                    <p><strong>Author:</strong> A. G. Silver</p>
+                    <p><strong>Year:</strong> 2022</p>
+                </div>
+            </div>
+            <div class="book">
+                <img src="f3.jpeg" alt="Fantasy Book 3">
+                <div class="book-details">
+                    <p><strong>Name:</strong> A Ruinous Fate</p>
+                    <p><strong>Author:</strong> Kaylie McDougal</p>
+                    <p><strong>Year:</strong> 2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Section -->
+    <section id="subscription" class="subscription-section">
+        <h2>Choose Your Subscription Plan</h2>
+        <div class="subscription-plan">
+            <h3>Student Plan</h3>
+            <p>Access to all student resources</p>
+            <p>home delivery available</p>
+            <a class="amount-button" href="payment.html">Subscribe</a>
+        </div>
+        <div class="subscription-plan">
+            <h3>Faculty Plan</h3>
+            <p>Access to all faculty resources</p>
+            <p> free home delivery</p>
+            <a class="amount-button" href="payment.html">Subscibe</a>
+        </div>
+        <div class="subscription-plan">
+            <h3>Premium Plan</h3>
+            <p>Access to all resources</p>
+            <p>free one day delivery</p>
+            <a class="amount-button" href="payment.html">Subscibe</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="about-us" id="about-us">
+                <h3>About Us</h3>
+                <ul>
+                    <li>Our mission is to promote reading.</li>
+                    <li>We offer a wide range of books.</li>
+                    <li>Join us to explore new worlds!</li>
+                </ul>
+            </div>
+            <div class="contact-info" id="contact">
+                <h3>Contact Us</h3>
+                <div class="contact-item">
+                    <a class="contact-link" href="mailto:info@library.com">Email: info@library.com</a>
+                </div>
+                <div class="contact-item">
+                    <a class="contact-link" href="tel:+1234567890">Phone: +1234567890</a>
+                </div>
+                <div class="contact-item">
+                    <a class="contact-link" href="https://www.example.com">Website: www.example.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

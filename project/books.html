@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <style>
+        body {
+            background-image: url("bookbackimg.jpeg");
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .container {
+            flex: 1;
+            margin-left: 180px; /* Space for the side panel */
+            padding: 2em;
+            overflow-y: auto; /* Allows vertical scrolling for the entire container */
+        }
+
+        .genre-section {
+            margin-bottom: 2em;
+        }
+
+        .genre-section h2 {
+            font-size: 2em;
+            margin-bottom: 1em;
+            color:white;
+            border-bottom: 2px solid #00796b; /* Teal border for genre headings */
+            display: inline-block;
+            padding-bottom: 0.2em;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Slightly larger columns */
+            gap: 1em;
+        }
+
+        .book {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 1em;
+            width: 100%;
+            height: 380px; /* Adjusted height for larger images */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book img {
+            width: 120px; /* Increased width */
+            height: 180px; /* Increased height */
+            border-radius: 5px;
+            object-fit: cover; /* Ensures images maintain aspect ratio */
+        }
+
+        .book-details {
+            margin-top: 0.5em;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book-details p {
+            margin: 0.5em 0;
+            font-size: 0.9em; /* Smaller font size for details */
+        }
+
+        .add-to-cart {
+            display: inline-block;
+            padding: 0.5em 1em;
+            font-size: 0.9em;
+            color: white;
+            background-color: #00796b; /* Teal background */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            margin-top: 1em;
+        }
+
+        .add-to-cart:hover {
+            background-color: #004d40; /* Darker teal on hover */
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            color: white;
+            width: 180px; /* Width of the side panel */
+            height: 100vh; /* Full viewport height */
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .side-panel a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5em 0.5em;
+            margin: 0.5em 0;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .side-panel a:hover {
+            background-color: #555;
+        }
+
+        /* Move "About Us" to the bottom */
+        .about-us-link {
+            margin-top: auto; /* Pushes "About Us" link to the bottom */
+        }
+
+        .filter-section {
+            margin-bottom: 2em;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-section label {
+            color: white;
+            font-size: 1.2em;
+            margin-right: 1em;
+        }
+
+        .filter-dropdown {
+            padding: 0.5em;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Side Panel -->
+    <div class="side-panel">
+        <a href="library home.html">Home</a>
+        <a href="cart.html">Cart</a>
+        <a href="library home.html#contact">Contact</a>
+        <a href="library home.html#about-us" class="about-us-link">About Us</a> <!-- "About Us" at the bottom -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <label for="genre-filter">Filter by Genre:</label>
+            <select id="genre-filter" class="filter-dropdown" onchange="location = this.value;">
+                <option value="#romantic">Romantic</option>
+                <option value="#psychology">Psychology</option>
+                <option value="#fantasy">Fantasy</option>
+            </select>
+        </div>
+
+        <!-- Romantic Books -->
+        <!-- Romantic Books -->
+        <div id="romantic" class="genre-section">
+            <h2>Romantic Books</h2>
+            <div class="book-list">
+                <div class="book">
+                    <img src="r1.jpeg" alt="Romantic Book 1">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> You've Reached Sam</p>
+                        <p><strong>Author:</strong> Dustin Thao</p>
+                        <p><strong>Year:</strong> 2022</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="r2.jpeg" alt="Romantic Book 2">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> You and I</p>
+                        <p><strong>Author:</strong> Chahat Hasija</p>
+                        <p><strong>Year:</strong> 2023</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="r3.jpeg" alt="Romantic Book 1">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> It Ends with Us</p>
+                        <p><strong>Author:</strong> Colleen Hoover</p>
+                        <p><strong>Year:</strong> 2016</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="r4.jpeg" alt="Romantic Book 2">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> It Starts with Us</p>
+                        <p><strong>Author:</strong> Colleen Hoover</p>
+                        <p><strong>Year:</strong> 2022</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="r5.jpeg" alt="Romantic Book 3">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> How to End a Love Story</p>
+                        <p><strong>Author:</strong> Various Authors</p>
+                        <p><strong>Year:</strong> 2021</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="r6.jpeg" alt="Romantic Book 4">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> Would You Rather</p>
+                        <p><strong>Author:</strong> Allison Ashley</p>
+                        <p><strong>Year:</strong> 2022</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Psychology Books -->
+        <div id="psychology" class="genre-section">
+            <h2>Psychology Books</h2>
+            <div class="book-list">
+                <div class="book">
+                    <img src="p1.jpeg" alt="Psychology Book 1">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> POWER</p>
+                        <p><strong>Author:</strong> Robert Greene</p>
+                        <p><strong>Year:</strong> 1998</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="p2.jpeg" alt="Psychology Book 2">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> Surrounded by Idiots</p>
+                        <p><strong>Author:</strong> Thomas Erikson</p>
+                        <p><strong>Year:</strong> 2014</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="p3.jpg" alt="Psychology Book 1">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> The Psychology of Money</p>
+                        <p><strong>Author:</strong> Morgan Housel</p>
+                        <p><strong>Year:</strong> 2020</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="p4.jpeg" alt="Psychology Book 2">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> Eat That Frog</p>
+                        <p><strong>Author:</strong> Brian Tracy</p>
+                        <p><strong>Year:</strong> 2001</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="p5.jpg" alt="Psychology Book 3">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> Think Like a Monk</p>
+                        <p><strong>Author:</strong> Jay Shetty</p>
+                        <p><strong>Year:</strong> 2020</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="p6.png" alt="Psychology Book 4">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> Mastering the Mind</p>
+                        <p><strong>Author:</strong> Thich Nhat Hanh</p>
+                        <p><strong>Year:</strong> 2011</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Fantasy Books -->
+        <div id="fantasy" class="genre-section">
+            <h2>Fantasy Books</h2>
+            <div class="book-list">
+                <div class="book">
+                    <img src="f1.jpeg" alt="Fantasy Book 1">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> The Girl Who Drank the Moon</p>
+                        <p><strong>Author:</strong> Kelly Barnhill</p>
+                        <p><strong>Year:</strong> 2016</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="f2.jpeg" alt="Fantasy Book 2">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> One Piece Vol 105</p>
+                        <p><strong>Author:</strong> Eiichiro Oda</p>
+                        <p><strong>Year:</strong> 2023</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="f3.jpeg" alt="Fantasy Book 1">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> The Secret of Magic Falling Kingdom Academy 2</p>
+                        <p><strong>Author:</strong> Morgan Rice</p>
+                        <p><strong>Year:</strong> 2017</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="f4.jpeg" alt="Fantasy Book 2">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> The Elements of the Crown</p>
+                        <p><strong>Author:</strong> Kay L. Moody</p>
+                        <p><strong>Year:</strong> 2020</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="f5.jpeg" alt="Fantasy Book 3">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> A Ruinous Fate</p>
+                        <p><strong>Author:</strong> Kaylie Smith</p>
+                        <p><strong>Year:</strong> 2023</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="book">
+                    <img src="f6.jpeg" alt="Fantasy Book 4">
+                    <div class="book-details">
+                        <p><strong>Name:</strong> Fairy Tale</p>
+                        <p><strong>Author:</strong> Stephen King</p>
+                        <p><strong>Year:</strong> 2022</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const bookDetails = this.parentElement;
+                const book = {
+                    name: bookDetails.querySelector('p:nth-child(1)').textContent.replace('Name: ', ''),
+                    author: bookDetails.querySelector('p:nth-child(2)').textContent.replace('Author: ', ''),
+                    year: bookDetails.querySelector('p:nth-child(3)').textContent.replace('Year: ', ''),
+                    image: bookDetails.previousElementSibling.src // Get the image src
+                };
+
+                // Retrieve the cart from localStorage, or initialize an empty array
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push(book);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert(`${book.name} has been added to your cart!`);
+            });
+        });
+    </script>
+</body>
+</html>
